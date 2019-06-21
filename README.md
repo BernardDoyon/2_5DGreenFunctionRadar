@@ -1,5 +1,5 @@
 # 2_5DGreenFunctionRadar
-This repositorie contains all the files to calculated the Green function
+This repository contains all the files to calculated the Green function
 for the 2.5 D geometry of radar wave modeling and to reproduced all the results
 presented in the paper:
 
