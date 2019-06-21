@@ -9,22 +9,24 @@ weighted-averaging diﬀerence operators
 Brief description of files:
 
 1- main.m 
-			The main file. 
+			The main file. Most of the other functions are called from this main file
 			
 2- GenerateModel.m
-			A useful file to generate three simple parameter model to test the code
+			A useful function to generate three simple parameter models to test the code
 			The numerical solution can be calculated for the homogeneous model and the 3 
-			layer model and compare with the analytical solution
+			layer model and compare with the analytical solution.
 			
 3- InitializeForwardModeling.m
 			A function that will take the input modeling setup of the user and translate it	
-			for the function EM_NumericalGreenFunction(). This function can plot the initial 
-			parameter model and the numerical grid that is used
+			for the function EM_NumericalGreenFunction(). This InitializeForwardModeling()
+			function can plot the initial parameter model and the numerical grid that is used
+			to solve for the Green's functions. Position of sources and receptors are also 
+			indicated on the plot. 
 
 4- EM_NumericalGreenFunction.m
 			This function solves equation 6 and 7. The sparse matrix is constructed 
 			with RadarSparseMatrix (standard coefficients) or 
-			RadarSparseMatrixOpt (optima coefficients)
+			RadarSparseMatrixOpt (optimal coefficients)
 			
 5a RadarSparseMatrix.m
 			This function calculates the elements of the sparse matrix associated with eq 6
