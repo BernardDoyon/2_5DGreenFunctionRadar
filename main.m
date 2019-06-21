@@ -193,7 +193,7 @@ currentFolder = pwd;
 DirDataOut = strcat(currentFolder,'\Results\');
 mkdir(DirDataOut);
 
-flagCoeff = 0; % 1 = Optimal Coefficient; 0 = Standard coefficients
+flagCoeff = 1; % 1 = Optimal Coefficient; 0 = Standard coefficients
 
 flagModel = 1;      % 1-HomogeneousModel; 2-Three-Layer Medium
                     % 3-GradientModel 4-Your Model
@@ -406,9 +406,9 @@ if (flagModel < 3)
                 FullFileNameNum = strcat(DirDataOut,FileNameNum1);
         end
         GreenFunctionErrorReceptors(FullFileNameAnalytic, FullFileNameNum);   
-        GreenFunctionErrorReceptorsComp(FullFileNameAnalytic, ...
-                                    strcat(DirDataOut,FileNameNum0),...
-                                    strcat(DirDataOut,FileNameNum1));
+       % GreenFunctionErrorReceptorsComp(FullFileNameAnalytic, ...
+       %                             strcat(DirDataOut,FileNameNum0),...
+       %                             strcat(DirDataOut,FileNameNum1));
     elseif (flagModel == 2) % Calculate analytical Green function for
         % Sand-Clay model and compare with numerical
         % solution
