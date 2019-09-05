@@ -9,30 +9,30 @@ function EM_NumericalGreenFunction(FileNameModelInfo,FileNameOut,...
    %
    % For every wavenumber Ky, the sparse matrix is constructed 
    % (with RadarSparseMatrixOpt_mex or RadarSparseMatrix_mex)
-   % (see line 175, 180 (for Ky = 0) and 221, 226 (for the other values
+   % (see line 175, 188 (for Ky = 0) and 234, 246 (for the other values
    % of Ky)
    %
    % Then, equation 6 is solved with the backslash operation
-   % (see line 181 (for Ky = 0) and 226 (for the other values
+   % (see line 197 (for Ky = 0) and 255 (for the other values
    % of Ky)
    %
-   % Finally, the summation is calculated (line 236, we use odd and even 
+   % Finally, the summation is calculated (line 260, we use odd and even 
    % property of Green's functions) until convergence criteria is
-   % satisfied (see line 267)
+   % satisfied (see line 291)
    %    
    % The final Green function is stored for every cell of the grid
-   %  (line 285)
-   
+   %  
    %    Ex(Nf,1:Nz*Nx) (x component)
    %    Ez(Nf,1:Nz*Nx) (z component)
    %    Ey(Nf,1:Nz*Nx) (y component)
    %
    %    Example:
-   %            Ex(22,3) is the complex Green function at 
-   %            frequency index "23" and at grid cell position index "3"
+   %            Ex(22,3) is the complex Green function for the x componant 
+   %            at frequency index "23" and at grid cell position index "3"
    %
-   %    Note:   The top left cell is cell index "1". The value of the index
-   %            is first increased from left to right. 
+   %    Note: The top left cell index is equal to 1. The value of the index
+   %          is first increased from left to right and then from top to
+   %          bottum
    %
   
     mu0 = 4*pi*1e-7;

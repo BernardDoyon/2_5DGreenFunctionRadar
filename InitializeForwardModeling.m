@@ -3,10 +3,10 @@ function InitializeForwardModeling(FileNameModel,Nf,fmin,fmax,idexFrequency,q,lx
                            pola_receptor,delta_x,delta_z,NbGridPointPerWavelength,...
                            NbGridSizes,InterpolationMethod,flagPlotModel) %#ok<INUSL>
 
-%   This function will create a .mat file in the currentFolder,'\Results\'
-%   path. This .mat fil will contain all the information needed to 
-%   calculate the numerical solution for the Green function with the
-%   help of EM_NumericalGreenFunction.m file
+%   This function will create a FileNameModelForwInfo.mat file in the 
+%   CurrentFolder\Model directory. This .mat file will contain all the 
+%   information needed to calculate the numerical solution for the Green 
+%   function with the help of EM_NumericalGreenFunction.m file
 %   (see main.m file)
 %
 %   The user has to provide some informations about the model, informations 
@@ -29,18 +29,22 @@ function InitializeForwardModeling(FileNameModel,Nf,fmin,fmax,idexFrequency,q,lx
 %       of the domain or the position of the sources) are specified
 %       with the
 %
-%   2) Nf:  Number of positive frequencies obtained from the 
-%           Fourier transform of the intial time radar trace
-%   3) fmax: Frequency max: Maximum value of the frequency (MHz) 
-%   4) fmin: Frequency min  Minimum value of the frequency (MHz)
+%   2) Nf:  Number of positive frequencies to describe the initial 
+%           time domain source pulse 
+%    
+%   3) fmax: Maximum value of the frequency (MHz) 
 %
-%   5) idexFrequency = linspace(1,15,15)*3; 
+%   4) fmin: Minimum value of the frequency (MHz)
+%
+%   5) idexFrequency 
 %                   Index of the frequencies for which a Green function has
 %                   to be calculated.
+%                   
 %                   Example:
-%                   Nf = 10; (10 positive frequencies) fmax = 100; fmin = 0
-%                   The positive frequencies after the Fourier Transform of 
-%                   the initial Radar trace are:
+%
+%                   If Nf = 10; (10 positive frequencies) and fmax = 100 
+%                   and fmin = 0, the positive frequencies describing the
+%                   initial time domain trace of the source would be
 %                   f =[10 20 30 40 50 60 70 80 90 100] MHz
 %                   If we set idexFrequency = [3 6 9], the Green function
 %                   will be calculated for f = 30, 60 and 90 MHz. 
