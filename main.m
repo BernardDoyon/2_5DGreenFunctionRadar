@@ -12,18 +12,9 @@ function main()
 %           2) RadarSparseMatrixOpt.m -> RadarSparseMatrixOpt_mex
 %
 %   If the Mex file can't be build, it is still possible to use the main
-%   file BUT you must edit the file EM_NumericalGreenFunction.m and change 
-%   every call of RadarSparseMatrix_mex by RadarSparseMatrix and every call
-%   of RadarSparseMatrixOpt_mex by RadarSparseMatrixOpt. The programm will 
-%   be much slower without the MEX file. 
+%   file BUT the programm will be much slower without this MEX file. 
 %     
-%   From an inital parameter model, the main file performs 3 operations.
-%   The parameter model file must be in the "CurrentFolder\Model" directory 
-%   and must contain 3 matrices for each of the parameters: 
-%   epsilon_r (relative permittivity), mu_r (relative permeability)
-%   and sigma (conductivity) on the domain. From this parameter model file 
-%   (with the generic name "FileNameModel.mat", the main file can perform 
-%   3 operations:
+%   The main file performs 3 operations.
 %
 %   I) It will create a FileNameModelForwInfo.mat file associated 
 %      with the forward modeling to perform. This file is created with 
@@ -38,9 +29,8 @@ function main()
 %       located in CurrentFolder\Results. Interpolation is then used to 
 %       calculate the solution at the receptors position. The solution at
 %       receptors position will be store in FileNameGrennFunction_R file in
-%       the variables:
-%           ExR
-%       
+%       the variables ExR, EzR and EyR (e.g. electric field values at
+%       Receptor for the x, z and y componants).
 %
 %   III) For the homgeneous model and the Three-Layers model, analytical 
 %       solution for the Green function can be calculated and compare with 
@@ -48,8 +38,8 @@ function main()
 %
 %
 %   To create the FileNameModelForwInfo.mat file, the user has to 
-%   provide informations about the simulation to perform. The informations 
-%   are:
+%   provide informations about the simulation to perform. These 
+%   informations are:
 %
 %   1) FileNameModel: 
 %
@@ -68,22 +58,26 @@ function main()
 %      NOTE: The FileNameModel.mat file has to be stored in the  
 %            CurrentFolder\Model directory
 %
-%       All the other parameters of the model (for instance the length
-%       of the domain or the position of the sources) are specified
-%       in this main file. These parameters are: 
+%   All the other parameters of the model (for instance the length
+%   of the domain or the position of the sources) are specified
+%   in this main file. These parameters are: 
 %
-%   2) Nf:  Number of positive frequencies obtained from the 
-%           Fourier transform of the intial time radar trace
-%   3) fmax: Frequency max: Maximum value of the frequency (MHz) 
-%   4) fmin: Frequency min  Minimum value of the frequency (MHz)
+%   2) Nf:  Number of positive frequencies to describe the initial 
+%           time domain source pulse 
+%    
+%   3) fmax: Maximum value of the frequency (MHz) 
+%
+%   4) fmin: Minimum value of the frequency (MHz)
 %
 %   5) idexFrequency 
 %                   Index of the frequencies for which a Green function has
 %                   to be calculated.
+%                   
 %                   Example:
-%                   Nf = 10; (10 positive frequencies) fmax = 100; fmin = 0
-%                   The positive frequencies after the Fourier Transform of 
-%                   the initial Radar trace are:
+%
+%                   If Nf = 10; (10 positive frequencies) and fmax = 100 
+%                   and fmin = 0, the positive frequencies describing the
+%                   initial time domain trace of the source would be
 %                   f =[10 20 30 40 50 60 70 80 90 100] MHz
 %                   If we set idexFrequency = [3 6 9], the Green function
 %                   will be calculated for f = 30, 60 and 90 MHz. 
@@ -95,7 +89,7 @@ function main()
 %   7) lx:      x length of domain (meters)
 %   8) lz:      z length of domain (meters)
 %   9) sx:      x position of sources (meters)
-%   10) sz:      z position of sources (meters)
+%   10) sz:     z position of sources (meters)
 %   11) rx:     x position of receptors (meters)
 %   12) rz:     z position of receptors (meters)
 %   13) ry:     y position of receptors (meters)
@@ -137,7 +131,7 @@ function main()
 %           respected. It is possible to restrict the number of different 
 %           Delta values (see variable NbGridSizes below)
 %
-%           The value for delta_x and delta_z CAN'T be smaller than the
+%           The value for delta_x and delta_z CAN'T be larger than the
 %           initial parameter model grid size.
 %
 % 20) NbGridPointPerWavelength: The minimum number of points per wavelength
@@ -155,7 +149,7 @@ function main()
 %           The numerical grid to calculate the Green's functions will 
 %           usually be smaller than the inital parameter model.  The 
 %           parameter epsilon_r, mu_r and sigma need to be 
-%           interpolated on this smaller new grid. The   
+%           interpolated on this smaller new grid. 
 %
 % 23)*flagPlotModel: When this flag is set to 1, a color image of the
 %                   initial model for epsilon and sigma are plot for the
@@ -164,7 +158,7 @@ function main()
 %                   numerical grid.   
 %
 %  
-% To calculate the Green function, we can use the standar coefficients or
+% To calculate the Green function, we can use the standard coefficients or
 % the optimal coefficients. We use a flag to indicate the coefficients 
 % 
 %       flagCoeff: % 1 = Optimal Coefficient; 0 = Standard coefficients
